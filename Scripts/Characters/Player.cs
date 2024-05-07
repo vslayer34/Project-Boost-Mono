@@ -21,12 +21,12 @@ public partial class Player : Node3D
 
         if (Input.IsActionPressed(InputActionNames.BuiltIn.UI_LEFT))
         {
-            RotateZ(-(float)delta);
+            RotateZ((float)delta);
         }
 
         if (Input.IsActionPressed(InputActionNames.BuiltIn.UI_RIGHT))
         {
-            RotateZ((float)delta );
+            RotateZ(-(float)delta );
         }
     }
 }
