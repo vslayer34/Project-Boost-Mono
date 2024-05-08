@@ -7,6 +7,9 @@ public partial class Player : RigidBody3D
 {
     [Export]
     private float _velocity = 1000.0f;
+
+    [Export]
+    private float _rotationSpeed = 100.0f;
     private Vector3 _movementVector;
 
 
@@ -18,18 +21,17 @@ public partial class Player : RigidBody3D
 
         if (Input.IsActionPressed(InputActionNames.BuiltIn.UI_ACCEPT))
         {
-            // Position = new Vector3(Position.X, Position.Y + (float)delta, Position.Z);
-            ApplyCentralForce(Vector3.Up * _velocity * (float)delta);
+            ApplyCentralForce(Basis.Y * _velocity * (float)delta);
         }
 
         if (Input.IsActionPressed(InputActionNames.BuiltIn.UI_LEFT))
         {
-            RotateZ((float)delta);
+            ApplyTorque(new Vector3(0.0f, 0.0f, _rotationSpeed * (float)delta));
         }
 
         if (Input.IsActionPressed(InputActionNames.BuiltIn.UI_RIGHT))
         {
-            RotateZ(-(float)delta );
+            ApplyTorque(new Vector3(0.0f, 0.0f, -1 * _rotationSpeed * (float)delta));
         }
     }
 }
