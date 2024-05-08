@@ -3,8 +3,10 @@ using ProjectBoostMono.Scripts.Helper;
 using System;
 
 namespace ProjectBoostMono.Scripts.Characters;
-public partial class Player : Node3D
+public partial class Player : RigidBody3D
 {
+    [Export]
+    private float _velocity = 1000.0f;
     private Vector3 _movementVector;
 
 
@@ -16,7 +18,8 @@ public partial class Player : Node3D
 
         if (Input.IsActionPressed(InputActionNames.BuiltIn.UI_ACCEPT))
         {
-            Position = new Vector3(Position.X, Position.Y + (float)delta, Position.Z);
+            // Position = new Vector3(Position.X, Position.Y + (float)delta, Position.Z);
+            ApplyCentralForce(Vector3.Up * _velocity * (float)delta);
         }
 
         if (Input.IsActionPressed(InputActionNames.BuiltIn.UI_LEFT))
