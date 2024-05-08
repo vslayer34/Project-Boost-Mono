@@ -10,6 +10,27 @@ namespace ProjectBoostMono.Scripts.Helper;
 class InputActionNames
 {
     /// <summary>
+    /// Contains reference to user defined input actions
+    /// </summary>
+    public class User
+    {
+        /// <summary>
+        /// Reference to the<c>"boost"</>input action
+        /// </summary>
+        public const string BOOST = "boost";
+
+        /// <summary>
+        /// Reference to the<c>"rotate_left"</>input action
+        /// </summary>
+        public const string ROTATE_LEFT = "rotate_left";
+
+        /// <summary>
+        /// Reference to the<c>"rotate_right"</>input action
+        /// </summary>
+        public const string ROTATE_RIGHT = "rotate_right";
+    }
+
+    /// <summary>
     /// Contains references to the built-in input actions
     /// </summary>
     public class BuiltIn
