@@ -5,7 +5,12 @@ using System;
 namespace ProjectBoostMono.Scripts.Characters;
 public partial class Player : RigidBody3D
 {
-    [Export]
+    /// <summary>
+    /// How fast the rocket launch
+    /// </summary>
+    // How fast the rocket launch
+    [Export(PropertyHint.Range, "750,3000")]
+    // How fast the rocket launch
     private float _velocity = 1000.0f;
 
     [Export]
