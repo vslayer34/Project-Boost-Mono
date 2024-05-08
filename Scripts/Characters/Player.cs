@@ -15,6 +15,12 @@ public partial class Player : RigidBody3D
 
 
     // Game Loop Methods---------------------------------------------------------------------------
+
+    public override void _Ready()
+    {
+        BodyEntered += OnBodyEntered;
+    }
+
     public override void _Process(double delta)
     {
         // _movementVector = Vector3.Zero;
@@ -33,5 +39,20 @@ public partial class Player : RigidBody3D
         {
             ApplyTorque(new Vector3(0.0f, 0.0f, -1 * _rotationSpeed * (float)delta));
         }
+    }
+
+    // Signal Methods------------------------------------------------------------------------------
+
+    private void OnBodyEntered(Node body)
+    {
+        if (body.GetGroups().Contains(GroupName.DANGER))
+        {
+            GD.Print(@"You Crashed :(");
+        }
+        else if (body.GetGroups().Contains(GroupName.GOAL))
+        {
+            GD.Print(@"You WON!!!!!!!! \m/");
+        }
+
     }
 }
