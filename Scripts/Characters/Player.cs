@@ -48,6 +48,15 @@ public partial class Player : RigidBody3D
         if (Input.IsActionPressed(InputActionNames.User.BOOST))
         {
             ApplyCentralForce(Basis.Y * _velocity * (float)delta);
+
+            if (!RocketSFXPlayer.Playing)
+            {
+                RocketSFXPlayer.Play();
+            }
+        }
+        else
+        {
+            RocketSFXPlayer.Stop();
         }
 
         if (Input.IsActionPressed(InputActionNames.User.ROTATE_LEFT))
