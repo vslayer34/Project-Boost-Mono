@@ -5,6 +5,14 @@ using System;
 namespace ProjectBoostMono.Scripts.Characters;
 public partial class Player : RigidBody3D
 {
+    [ExportGroup("Child Nodes")]
+    [Export]
+    public AudioStreamPlayer CrashSFXPlayer { get; private set;}
+
+    [Export]
+    public AudioStreamPlayer WinSFXPlayer { get; private set;}
+
+    [ExportGroup("")]
     /// <summary>
     /// How fast the rocket launch
     /// </summary>
@@ -58,8 +66,10 @@ public partial class Player : RigidBody3D
     private void StartCrashSequence()
     {
         GD.Print("KABOOM!!!!!!!");
+        CrashSFXPlayer.Play();
         Tween tween = CreateTween();
-        tween.TweenInterval(1.0f);
+        // tween.TweenInterval(1.0f);
+        tween.TweenInterval(CrashSFXPlayer.Stream.GetLength() + 0.5f);
         tween.TweenCallback(Callable.From(() => GetTree().ReloadCurrentScene()));
     }
 
@@ -69,9 +79,12 @@ public partial class Player : RigidBody3D
     private void CompletLevel(string nextLevelPath)
     {
         GD.Print("Congrats ;)");
+        WinSFXPlayer.Play();
         
         Tween tween = CreateTween();
-        tween.TweenInterval(1.0f);
+        // tween.TweenInterval(1.0f);
+
+        tween.TweenInterval(WinSFXPlayer.Stream.GetLength() + 0.5f);
         tween.TweenCallback(Callable.From(() => GetTree().ChangeSceneToFile(nextLevelPath)));
     }
 
