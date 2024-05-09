@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://u26j0syydtmh"]
+[gd_scene load_steps=10 format=3 uid="uid://b55bgqbe0pnlg"]
 
-[ext_resource type="PackedScene" uid="uid://b2f5cncw18jrd" path="res://Scenes/Characters/player.tscn" id="1_48wfh"]
-[ext_resource type="Script" path="res://Scripts/Levels/LandingPad.cs" id="1_lvg6s"]
+[ext_resource type="PackedScene" uid="uid://b2f5cncw18jrd" path="res://Scenes/Characters/player.tscn" id="1_bt6da"]
+[ext_resource type="Script" path="res://Scripts/Levels/LandingPad.cs" id="1_p152g"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7g6mi"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -19,13 +19,16 @@ glow_enabled = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grkuh"]
 albedo_color = Color(0.258824, 0.188235, 0.12549, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ibj1"]
+albedo_color = Color(0.690196, 0.666667, 0.12549, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y7orb"]
 albedo_color = Color(0.054902, 0.0745098, 0.458824, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0pc5o"]
 albedo_color = Color(0.137255, 0.458824, 0.054902, 1)
 
-[node name="Level" type="Node3D"]
+[node name="Level2" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_r7mm4")
@@ -40,6 +43,12 @@ use_collision = true
 size = Vector3(30, 8, 5)
 material = SubResource("StandardMaterial3D_grkuh")
 
+[node name="Floor2" type="CSGBox3D" parent="." groups=["Danger"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+use_collision = true
+size = Vector3(5, 2, 5)
+material = SubResource("StandardMaterial3D_7ibj1")
+
 [node name="LaunchingPad" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0.1, 0)
 use_collision = true
@@ -51,13 +60,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.1, 0)
 use_collision = true
 size = Vector3(2, 0.2, 2)
 material = SubResource("StandardMaterial3D_0pc5o")
-script = ExtResource("1_lvg6s")
-NextLevelFilePath = "res://Scenes/Levels/level_2.tscn"
+script = ExtResource("1_p152g")
+NextLevelFilePath = "res://Scenes/Levels/level_3.tscn"
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.978148, 0.207912, 0, -0.207912, 0.978148, 0, 4.427, 6.931)
 
-[node name="Player" parent="." instance=ExtResource("1_48wfh")]
+[node name="Player" parent="." instance=ExtResource("1_bt6da")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0.2, 0)
 linear_damp = 1.0
 angular_damp = 3.0

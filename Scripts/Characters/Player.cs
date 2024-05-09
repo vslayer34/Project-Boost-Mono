@@ -46,17 +46,39 @@ public partial class Player : RigidBody3D
         }
     }
 
+    // Member Methods------------------------------------------------------------------------------
+
+    /// <summary>
+    /// Initiate playing crashing event and gem behaviour
+    /// </summary>
+    private void StartCrashSequence()
+    {
+        GD.Print("KABOOM!!!!!!!");
+        GetTree().ReloadCurrentScene();
+    }
+
+    /// <summary>
+    /// Initiate playing winning event and gem behaviour
+    /// </summary>
+    private void CompletLevel(string nextLevelPath)
+    {
+        GD.Print("Congrats ;)");
+        GetTree().ChangeSceneToFile(nextLevelPath);
+    }
+
     // Signal Methods------------------------------------------------------------------------------
 
     private void OnBodyEntered(Node body)
     {
         if (body.GetGroups().Contains(GroupName.DANGER))
         {
-            GD.Print(@"You Crashed :(");
+            StartCrashSequence();
         }
         else if (body.GetGroups().Contains(GroupName.GOAL))
         {
-            GD.Print(@"You WON!!!!!!!! \m/");
+            LandingPad pad = body as LandingPad;
+            CallDeferred(MethodName.CompletLevel, pad.NextLevelFilePath);
+            // CompletLevel(pad.NextLevelFilePath);
         }
 
     }
