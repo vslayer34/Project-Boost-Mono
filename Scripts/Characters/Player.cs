@@ -12,6 +12,9 @@ public partial class Player : RigidBody3D
     [Export]
     public AudioStreamPlayer WinSFXPlayer { get; private set;}
 
+    [Export]
+    public AudioStreamPlayer3D RocketSFXPlayer { get; private set; }
+
     [ExportGroup("")]
     /// <summary>
     /// How fast the rocket launch
