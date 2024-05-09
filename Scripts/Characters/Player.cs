@@ -6,6 +6,7 @@ namespace ProjectBoostMono.Scripts.Characters;
 public partial class Player : RigidBody3D
 {
     [ExportGroup("Child Nodes")]
+    [ExportSubgroup("Audio Nodes")]
     [Export]
     public AudioStreamPlayer CrashSFXPlayer { get; private set;}
 
@@ -14,6 +15,16 @@ public partial class Player : RigidBody3D
 
     [Export]
     public AudioStreamPlayer3D RocketSFXPlayer { get; private set; }
+
+    [ExportSubgroup("Booster VFX")]
+    [Export]
+    public GpuParticles3D MainThruster { get; private set; }
+    [Export]
+    public GpuParticles3D RightThruster { get; private set; }
+
+    [Export]
+    public GpuParticles3D LeftThruster { get; private set; }
+    [ExportSubgroup("")]
 
     [ExportGroup("")]
     /// <summary>
@@ -53,20 +64,32 @@ public partial class Player : RigidBody3D
             {
                 RocketSFXPlayer.Play();
             }
+            MainThruster.Emitting = true;
         }
         else
         {
+            MainThruster.Emitting = false;
             RocketSFXPlayer.Stop();
         }
 
         if (Input.IsActionPressed(InputActionNames.User.ROTATE_LEFT))
         {
             ApplyTorque(new Vector3(0.0f, 0.0f, _rotationSpeed * (float)delta));
+            RightThruster.Emitting = true;
+        }
+        else
+        {
+            RightThruster.Emitting = false;
         }
 
         if (Input.IsActionPressed(InputActionNames.User.ROTATE_RIGHT))
         {
             ApplyTorque(new Vector3(0.0f, 0.0f, -1 * _rotationSpeed * (float)delta));
+            LeftThruster.Emitting = true;
+        }
+        else
+        {
+            LeftThruster.Emitting = false;
         }
     }
 
