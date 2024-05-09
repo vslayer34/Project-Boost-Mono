@@ -54,7 +54,9 @@ public partial class Player : RigidBody3D
     private void StartCrashSequence()
     {
         GD.Print("KABOOM!!!!!!!");
-        GetTree().ReloadCurrentScene();
+        Tween tween = CreateTween();
+        tween.TweenInterval(1.0f);
+        tween.TweenCallback(Callable.From(() => GetTree().ReloadCurrentScene()));
     }
 
     /// <summary>
