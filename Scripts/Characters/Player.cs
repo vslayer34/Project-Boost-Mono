@@ -17,6 +17,10 @@ public partial class Player : RigidBody3D
     private float _rotationSpeed = 100.0f;
     private Vector3 _movementVector;
 
+    
+    // Set to true when transitioning scene to prevent multible calls on collision
+    private bool _isSceneTransitioning = false;
+
 
 
     // Game Loop Methods---------------------------------------------------------------------------
@@ -65,19 +69,34 @@ public partial class Player : RigidBody3D
     private void CompletLevel(string nextLevelPath)
     {
         GD.Print("Congrats ;)");
-        GetTree().ChangeSceneToFile(nextLevelPath);
+        
+        Tween tween = CreateTween();
+        tween.TweenInterval(1.0f);
+        tween.TweenCallback(Callable.From(() => GetTree().ChangeSceneToFile(nextLevelPath)));
     }
 
     // Signal Methods------------------------------------------------------------------------------
 
     private void OnBodyEntered(Node body)
     {
+        if (_isSceneTransitioning)
+        {
+            return;
+        }
+
         if (body.GetGroups().Contains(GroupName.DANGER))
         {
+            _isSceneTransitioning = true;
+            SetProcess(false);
+
             StartCrashSequence();
         }
         else if (body.GetGroups().Contains(GroupName.GOAL))
         {
+            _isSceneTransitioning = true;
+            SetProcess(false);
+
+            _isSceneTransitioning = true;
             LandingPad pad = body as LandingPad;
             CallDeferred(MethodName.CompletLevel, pad.NextLevelFilePath);
             // CompletLevel(pad.NextLevelFilePath);
