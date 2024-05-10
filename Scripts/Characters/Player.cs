@@ -24,7 +24,14 @@ public partial class Player : RigidBody3D
 
     [Export]
     public GpuParticles3D LeftThruster { get; private set; }
-    [ExportSubgroup("")]
+    
+    
+    [ExportSubgroup("One Shot VFX")]
+    [Export]
+    public GpuParticles3D ExplosiveVFX { get; private set; }
+
+    [Export]
+    public GpuParticles3D SuccessVFX { get; private set; }
 
     [ExportGroup("")]
     /// <summary>
@@ -101,9 +108,11 @@ public partial class Player : RigidBody3D
     private void StartCrashSequence()
     {
         GD.Print("KABOOM!!!!!!!");
+        
+        ExplosiveVFX.Emitting = true;
         CrashSFXPlayer.Play();
+        
         Tween tween = CreateTween();
-        // tween.TweenInterval(1.0f);
         tween.TweenInterval(CrashSFXPlayer.Stream.GetLength() + 0.5f);
         tween.TweenCallback(Callable.From(() => GetTree().ReloadCurrentScene()));
     }
@@ -114,11 +123,11 @@ public partial class Player : RigidBody3D
     private void CompletLevel(string nextLevelPath)
     {
         GD.Print("Congrats ;)");
+
+        SuccessVFX.Emitting = true;
         WinSFXPlayer.Play();
         
         Tween tween = CreateTween();
-        // tween.TweenInterval(1.0f);
-
         tween.TweenInterval(WinSFXPlayer.Stream.GetLength() + 0.5f);
         tween.TweenCallback(Callable.From(() => GetTree().ChangeSceneToFile(nextLevelPath)));
     }

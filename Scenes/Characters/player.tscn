@@ -1,16 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://b2f5cncw18jrd"]
+[gd_scene load_steps=10 format=3 uid="uid://b2f5cncw18jrd"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/Player.cs" id="1_xujj3"]
 [ext_resource type="AudioStream" uid="uid://xgibm1e04l8m" path="res://Assets/Audio/SFX - Death Explosion.ogg" id="2_ypsl7"]
 [ext_resource type="AudioStream" uid="uid://542x1vqriemp" path="res://Assets/Audio/SFX - Success.ogg" id="3_bo0cy"]
 [ext_resource type="AudioStream" uid="uid://dlyhhbqhx1hsy" path="res://Assets/Audio/SFX - Main engine thrust.ogg" id="4_lom3v"]
 [ext_resource type="PackedScene" uid="uid://ux6ivcx1ovdp" path="res://Scenes/VFX/Particles/booster_particles.tscn" id="5_cnxmy"]
+[ext_resource type="PackedScene" uid="uid://dcecb8hw7dbrv" path="res://Scenes/VFX/Particles/One Shot/explosion_particles.tscn" id="6_t65nu"]
+[ext_resource type="PackedScene" uid="uid://jfwajmrh6ca7" path="res://Scenes/VFX/Particles/One Shot/success_particles.tscn" id="7_1t03e"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_yya38"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_mewpg"]
 
-[node name="Player" type="RigidBody3D" node_paths=PackedStringArray("CrashSFXPlayer", "WinSFXPlayer", "RocketSFXPlayer", "MainThruster", "RightThruster", "LeftThruster")]
+[node name="Player" type="RigidBody3D" node_paths=PackedStringArray("CrashSFXPlayer", "WinSFXPlayer", "RocketSFXPlayer", "MainThruster", "RightThruster", "LeftThruster", "ExplosiveVFX", "SuccessVFX")]
 axis_lock_linear_z = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
@@ -23,6 +25,8 @@ RocketSFXPlayer = NodePath("RocketAudio")
 MainThruster = NodePath("MainBooster")
 RightThruster = NodePath("RightBooster")
 LeftThruster = NodePath("LeftBooster")
+ExplosiveVFX = NodePath("ExplosionParticles")
+SuccessVFX = NodePath("SuccessParticles")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -51,3 +55,7 @@ emitting = false
 [node name="LeftBooster" parent="." instance=ExtResource("5_cnxmy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)
 emitting = false
+
+[node name="ExplosionParticles" parent="." instance=ExtResource("6_t65nu")]
+
+[node name="SuccessParticles" parent="." instance=ExtResource("7_1t03e")]
