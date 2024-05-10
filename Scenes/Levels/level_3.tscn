@@ -61,7 +61,7 @@ use_collision = true
 size = Vector3(2, 0.2, 2)
 material = SubResource("StandardMaterial3D_0pc5o")
 script = ExtResource("1_dr13n")
-NextLevelFilePath = "res://Scenes/Levels/level.tscn"
+NextLevelFilePath = "res://Scenes/Levels/level_4.tscn"
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.978148, 0.207912, 0, -0.207912, 0.978148, 0, 4.427, 6.931)
